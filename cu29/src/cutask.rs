@@ -23,6 +23,12 @@ pub struct CuMsgMetadata {
     pub before_process: OptionCuTime,
     /// The time after the process method is called.
     pub after_process: OptionCuTime,
+
+
+    /// Those monitors if the task used the heap during the construction of this message
+    /// Note: they will only be counted if the task is compiled in debug mode.
+    pub allocated_bytes: usize,
+    pub deallocated_bytes: usize,
 }
 
 impl Display for CuMsgMetadata {
@@ -58,6 +64,8 @@ where
             metadata: CuMsgMetadata {
                 before_process: OptionCuTime::none(),
                 after_process: OptionCuTime::none(),
+                allocated_bytes: 0usize,
+                deallocated_bytes: 0usize,
             },
         }
     }

@@ -202,7 +202,16 @@ pub fn copper_runtime(args: TokenStream, input: TokenStream) -> TokenStream {
                             #comment_tokens
                             let cumsg_output = &mut payload.#output_culist_index;
                             cumsg_output.metadata.before_process = self.copper_runtime.clock.now().into();
-                            #task_instance.process(&self.copper_runtime.clock, cumsg_output)?;
+                            {
+                                let monitor = _ScopedAllocCounter::new();
+                                #task_instance.process(&self.copper_runtime.clock, cumsg_output)?;
+                                cumsg_output.metadata.allocated_bytes = _CountingAllocator::get_local_allocated();
+                                cumsg_output.metadata.deallocated_bytes = _CountingAllocator::get_local_deallocated();
+                                if cumsg_output.metadata.allocated_bytes > 0 {
+                                    debug!("Warning: Step {} allocated {} bytes, deallocated {} bytes", #output_culist_index, cumsg_output.metadata.allocated_bytes, cumsg_output.metadata.deallocated_bytes);
+                                }
+
+                            }
                             cumsg_output.metadata.after_process = self.copper_runtime.clock.now().into();
                         }
                     }
@@ -334,6 +343,8 @@ pub fn copper_runtime(args: TokenStream, input: TokenStream) -> TokenStream {
         use cu29::clock::RobotClock as _RobotClock;
         use cu29::clock::OptionCuTime as _OptionCuTime;
         use cu29::clock::ClockProvider as _ClockProvider;
+        use cu29::monitoring::ScopedAllocCounter as _ScopedAllocCounter;
+        use cu29::monitoring::CountingAllocator as _CountingAllocator;
         use std::sync::Arc as _Arc;
         use std::sync::Mutex as _Mutex;
         use cu29_unifiedlog::stream_write as _stream_write;

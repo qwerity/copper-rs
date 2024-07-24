@@ -1,75 +1,91 @@
 use std::alloc::{GlobalAlloc, Layout, System};
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::cell::RefCell;
+use std::thread_local;
 
 #[global_allocator]
 pub static GLOBAL: CountingAllocator = CountingAllocator::new();
 
-pub struct CountingAllocator {
-    allocated: AtomicUsize,
-    deallocated: AtomicUsize,
-}
+pub struct CountingAllocator;
 
 impl CountingAllocator {
     pub const fn new() -> Self {
-        CountingAllocator {
-            allocated: AtomicUsize::new(0),
-            deallocated: AtomicUsize::new(0),
-        }
+        CountingAllocator
     }
 
-    pub fn get_allocated(&self) -> usize {
-        self.allocated.load(Ordering::SeqCst)
+    pub fn get_local_allocated() -> usize {
+        LOCAL_ALLOCATED.with(|allocated| *allocated.borrow())
     }
 
-    pub fn get_deallocated(&self) -> usize {
-        self.deallocated.load(Ordering::SeqCst)
+    pub fn get_local_deallocated() -> usize {
+        LOCAL_DEALLOCATED.with(|deallocated| *deallocated.borrow())
     }
 
-    pub fn reset(&self) {
-        self.allocated.store(0, Ordering::SeqCst);
-        self.deallocated.store(0, Ordering::SeqCst);
+    pub fn reset_local() {
+        LOCAL_ALLOCATED.with(|allocated| *allocated.borrow_mut() = 0);
+        LOCAL_DEALLOCATED.with(|deallocated| *deallocated.borrow_mut() = 0);
     }
+}
+
+thread_local! {
+    static LOCAL_ALLOCATED: RefCell<usize> = RefCell::new(0);
+    static LOCAL_DEALLOCATED: RefCell<usize> = RefCell::new(0);
 }
 
 unsafe impl GlobalAlloc for CountingAllocator {
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
         let ptr = System.alloc(layout);
         if !ptr.is_null() {
-            self.allocated.fetch_add(layout.size(), Ordering::SeqCst);
+            LOCAL_ALLOCATED.with(|allocated| *allocated.borrow_mut() += layout.size());
         }
         ptr
     }
 
     unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
         System.dealloc(ptr, layout);
-        self.deallocated.fetch_add(layout.size(), Ordering::SeqCst);
+        LOCAL_DEALLOCATED.with(|deallocated| *deallocated.borrow_mut() += layout.size());
     }
 }
 
 pub struct ScopedAllocCounter {
-    bf_allocated: usize,
-    bf_deallocated: usize,
+    bf_local_allocated: usize,
+    bf_local_deallocated: usize,
 }
 
 impl ScopedAllocCounter {
     pub fn new() -> Self {
         ScopedAllocCounter {
-            bf_allocated: GLOBAL.get_allocated(),
-            bf_deallocated: GLOBAL.get_deallocated(),
+            bf_local_allocated: CountingAllocator::get_local_allocated(),
+            bf_local_deallocated: CountingAllocator::get_local_deallocated(),
         }
     }
 }
 
 impl Drop for ScopedAllocCounter {
     fn drop(&mut self) {
-        let _allocated = GLOBAL.get_allocated() - self.bf_allocated;
-        let _deallocated = GLOBAL.get_deallocated() - self.bf_deallocated;
-        // TODO(gbin): Fix this when the logger is ready.
-        // debug!(
-        //     "Allocations: +{}B -{}B",
-        //     allocated = allocated,
-        //     deallocated = deallocated,
+        let local_allocated = CountingAllocator::get_local_allocated() - self.bf_local_allocated;
+        let local_deallocated = CountingAllocator::get_local_deallocated() - self.bf_local_deallocated;
+
+        // This is where you can log or report the allocations
+        // println!(
+        //     "Local Allocations: +{}B -{}B",
+        //     local_allocated, local_deallocated
         // );
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_alloc() {
+        let _alloc_counter = ScopedAllocCounter::new();
+        {
+            let mut _v = vec![0u8; 1024];
+            println!("{:?}", _v[1023] + 12);
+        }
+        assert!(CountingAllocator::get_local_allocated() >= 1024);
+        assert!(CountingAllocator::get_local_deallocated() >= 1024);
+        assert!(CountingAllocator::get_local_allocated() < 1100); // arbitraily, it could be just few bytes more.
+    }
+}
