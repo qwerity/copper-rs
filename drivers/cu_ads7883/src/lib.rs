@@ -132,7 +132,6 @@ impl<'cl> CuSrcTask<'cl> for ADS7883 {
         // hard to know exactly when the value was read.
         // Should be within a couple of microseconds with the ioctl opverhead.
         let af = clock.now();
-        new_msg.metadata.tov = Some((af + bf) / 2u64).into();
 
         self.integrated_value = ((self.integrated_value + analog_value as u64)
             * INTEGRATION_FACTOR)
@@ -142,7 +141,7 @@ impl<'cl> CuSrcTask<'cl> for ADS7883 {
             analog_value: (self.integrated_value / INTEGRATION_FACTOR) as u16,
         };
         new_msg.set_payload(output);
-        new_msg.metadata.tov = ((clock.now() + bf) / 2u64).into();
+        new_msg.metadata.tov = Some((af + bf) / 2u64).into();
         Ok(())
     }
 }
