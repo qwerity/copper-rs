@@ -104,9 +104,9 @@ impl CuTaskLifecycle for Encoder {
 impl<'cl> CuSrcTask<'cl> for Encoder {
     type Output = output_msg!('cl, EncoderPayload);
 
-    fn process(&mut self, _clock: &RobotClock, new_msg: Self::Output) -> CuResult<()> {
+    fn process(&mut self, clock: &RobotClock, new_msg: Self::Output) -> CuResult<()> {
         let idata = self.data_from_interrupts.lock().unwrap();
-        new_msg.metadata.tov = idata.tov.into();
+        new_msg.metadata.tov = clock.now().into(); // because idata.tov is at the time of the last change.
         new_msg.set_payload(EncoderPayload { ticks: idata.ticks });
         Ok(())
     }
