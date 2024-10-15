@@ -10,7 +10,6 @@ use std::{io, mem};
 use bincode::config::standard;
 use bincode::decode_from_slice;
 use bincode::encode_into_slice;
-use bincode::error::EncodeError;
 use bincode::{Decode, Encode};
 use cu29_traits::{CuError, CuResult, UnifiedLogType, WriteStream};
 
@@ -87,41 +86,42 @@ impl Debug for MmapStream {
 
 impl<E: Encode> WriteStream<E> for MmapStream {
     fn log(&mut self, obj: &E) -> CuResult<()> {
-        let dst = self.current_section.get_user_buffer();
-        let result = encode_into_slice(obj, dst, standard());
-        match result {
-            Ok(nb_bytes) => {
-                self.current_position += nb_bytes;
-                self.current_section.used += nb_bytes as u32;
-                Ok(())
-            }
-            Err(e) => match e {
-                EncodeError::UnexpectedEnd => {
-                    let mut logger_guard = self.parent_logger.lock().unwrap();
-                    logger_guard.flush_section(&mut self.current_section);
-                    self.current_section =
-                        logger_guard.add_section(self.entry_type, self.minimum_allocation_amount);
+        // let dst = self.current_section.get_user_buffer();
+        // let result = encode_into_slice(obj, dst, standard());
+        // match result {
+        //     Ok(nb_bytes) => {
+        //         self.current_position += nb_bytes;
+        //         self.current_section.used += nb_bytes as u32;
+        //         Ok(())
+        //     }
+        //     Err(e) => match e {
+        //         EncodeError::UnexpectedEnd => {
+        //             let mut logger_guard = self.parent_logger.lock().unwrap();
+        //             logger_guard.flush_section(&mut self.current_section);
+        //             self.current_section =
+        //                 logger_guard.add_section(self.entry_type, self.minimum_allocation_amount);
 
-                    let result = encode_into_slice(
-                        obj,
-                        self.current_section.get_user_buffer(),
-                        standard(),
-                    )
-                    .expect(
-                        "Failed to encode object in a newly minted section. Unrecoverable failure.",
-                    ); // If we fail just after creating a section, there is not much we can do, we need to bail.
-                    self.current_position += result;
-                    self.current_section.used += result as u32;
-                    Ok(())
-                }
-                _ => {
-                    let err =
-                        <&str as Into<CuError>>::into("Unexpected error while encoding object.")
-                            .add_cause(e.to_string().as_str());
-                    Err(err)
-                }
-            },
-        }
+        //             let result = encode_into_slice(
+        //                 obj,
+        //                 self.current_section.get_user_buffer(),
+        //                 standard(),
+        //             )
+        //             .expect(
+        //                 "Failed to encode object in a newly minted section. Unrecoverable failure.",
+        //             ); // If we fail just after creating a section, there is not much we can do, we need to bail.
+        //             self.current_position += result;
+        //             self.current_section.used += result as u32;
+        //             Ok(())
+        //         }
+        //         _ => {
+        //             let err =
+        //                 <&str as Into<CuError>>::into("Unexpected error while encoding object.")
+        //                     .add_cause(e.to_string().as_str());
+        //             Err(err)
+        //         }
+        //     },
+        // }
+        Ok(())
     }
 }
 
