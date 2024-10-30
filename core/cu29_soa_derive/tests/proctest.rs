@@ -1,9 +1,8 @@
 #[cfg(test)]
 mod tests {
-    use cu29_soa_derive::soa;
-    #[derive(Debug, Default, PartialEq)]
-    #[soa]
-    pub struct Xyz {
+    use cu29_soa_derive::Soa;
+    #[derive(Debug, Default, PartialEq, Soa)]
+    pub(crate) struct Xyz {
         x: f32,
         y: f32,
         z: f32,
@@ -19,7 +18,7 @@ mod tests {
         let xyz = Xyz { x, y, z };
 
         let xyzsoa: XyzSoa<8> = XyzSoa::new(xyz);
-        assert_eq!(xyzsoa.x(), [x; 8]);
+        assert_eq!(xyzsoa.x(), &[x; 8]);
 
         let xs = xyzsoa.x();
         let ys = xyzsoa.y();
@@ -126,5 +125,22 @@ mod tests {
             (4.0_f32.powi(2) + 6.0_f32.powi(2) + 3.0_f32.powi(2)).sqrt()
         );
         assert_eq!(distances[2], 0.0);
+    }
+
+    #[derive(Debug, Default, PartialEq, Soa)]
+    pub struct Color {
+        r: f32,
+        g: f32,
+        b: f32,
+    }
+
+    #[test]
+    fn test_soa_composition() {
+
+        // #[derive(Debug, Default, PartialEq, Soa)]
+        // pub struct ColoredPointcloud {
+        //     color: Color,
+        //     position: Xyz,
+        // }
     }
 }
