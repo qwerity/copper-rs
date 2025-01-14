@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `core/cu29_derive/src/lib.rs`."><title>lib.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="cu29_derive" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0-nightly (c26db435b 2024-12-15)" data-channel="nightly" data-search-js="search-92e6798f.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">cu29_derive/</div>lib.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `core/cu29_derive/src/lib.rs`."><title>lib.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="cu29_derive" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (48a426eca 2025-01-12)" data-channel="nightly" data-search-js="search-75f5ac3e.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">cu29_derive/</div>lib.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -1264,7 +1264,174 @@
 <a href="#1263" id="1263">1263</a>
 <a href="#1264" id="1264">1264</a>
 <a href="#1265" id="1265">1265</a>
-<a href="#1266" id="1266">1266</a></pre></div><pre class="rust"><code><span class="kw">extern crate </span>proc_macro;
+<a href="#1266" id="1266">1266</a>
+<a href="#1267" id="1267">1267</a>
+<a href="#1268" id="1268">1268</a>
+<a href="#1269" id="1269">1269</a>
+<a href="#1270" id="1270">1270</a>
+<a href="#1271" id="1271">1271</a>
+<a href="#1272" id="1272">1272</a>
+<a href="#1273" id="1273">1273</a>
+<a href="#1274" id="1274">1274</a>
+<a href="#1275" id="1275">1275</a>
+<a href="#1276" id="1276">1276</a>
+<a href="#1277" id="1277">1277</a>
+<a href="#1278" id="1278">1278</a>
+<a href="#1279" id="1279">1279</a>
+<a href="#1280" id="1280">1280</a>
+<a href="#1281" id="1281">1281</a>
+<a href="#1282" id="1282">1282</a>
+<a href="#1283" id="1283">1283</a>
+<a href="#1284" id="1284">1284</a>
+<a href="#1285" id="1285">1285</a>
+<a href="#1286" id="1286">1286</a>
+<a href="#1287" id="1287">1287</a>
+<a href="#1288" id="1288">1288</a>
+<a href="#1289" id="1289">1289</a>
+<a href="#1290" id="1290">1290</a>
+<a href="#1291" id="1291">1291</a>
+<a href="#1292" id="1292">1292</a>
+<a href="#1293" id="1293">1293</a>
+<a href="#1294" id="1294">1294</a>
+<a href="#1295" id="1295">1295</a>
+<a href="#1296" id="1296">1296</a>
+<a href="#1297" id="1297">1297</a>
+<a href="#1298" id="1298">1298</a>
+<a href="#1299" id="1299">1299</a>
+<a href="#1300" id="1300">1300</a>
+<a href="#1301" id="1301">1301</a>
+<a href="#1302" id="1302">1302</a>
+<a href="#1303" id="1303">1303</a>
+<a href="#1304" id="1304">1304</a>
+<a href="#1305" id="1305">1305</a>
+<a href="#1306" id="1306">1306</a>
+<a href="#1307" id="1307">1307</a>
+<a href="#1308" id="1308">1308</a>
+<a href="#1309" id="1309">1309</a>
+<a href="#1310" id="1310">1310</a>
+<a href="#1311" id="1311">1311</a>
+<a href="#1312" id="1312">1312</a>
+<a href="#1313" id="1313">1313</a>
+<a href="#1314" id="1314">1314</a>
+<a href="#1315" id="1315">1315</a>
+<a href="#1316" id="1316">1316</a>
+<a href="#1317" id="1317">1317</a>
+<a href="#1318" id="1318">1318</a>
+<a href="#1319" id="1319">1319</a>
+<a href="#1320" id="1320">1320</a>
+<a href="#1321" id="1321">1321</a>
+<a href="#1322" id="1322">1322</a>
+<a href="#1323" id="1323">1323</a>
+<a href="#1324" id="1324">1324</a>
+<a href="#1325" id="1325">1325</a>
+<a href="#1326" id="1326">1326</a>
+<a href="#1327" id="1327">1327</a>
+<a href="#1328" id="1328">1328</a>
+<a href="#1329" id="1329">1329</a>
+<a href="#1330" id="1330">1330</a>
+<a href="#1331" id="1331">1331</a>
+<a href="#1332" id="1332">1332</a>
+<a href="#1333" id="1333">1333</a>
+<a href="#1334" id="1334">1334</a>
+<a href="#1335" id="1335">1335</a>
+<a href="#1336" id="1336">1336</a>
+<a href="#1337" id="1337">1337</a>
+<a href="#1338" id="1338">1338</a>
+<a href="#1339" id="1339">1339</a>
+<a href="#1340" id="1340">1340</a>
+<a href="#1341" id="1341">1341</a>
+<a href="#1342" id="1342">1342</a>
+<a href="#1343" id="1343">1343</a>
+<a href="#1344" id="1344">1344</a>
+<a href="#1345" id="1345">1345</a>
+<a href="#1346" id="1346">1346</a>
+<a href="#1347" id="1347">1347</a>
+<a href="#1348" id="1348">1348</a>
+<a href="#1349" id="1349">1349</a>
+<a href="#1350" id="1350">1350</a>
+<a href="#1351" id="1351">1351</a>
+<a href="#1352" id="1352">1352</a>
+<a href="#1353" id="1353">1353</a>
+<a href="#1354" id="1354">1354</a>
+<a href="#1355" id="1355">1355</a>
+<a href="#1356" id="1356">1356</a>
+<a href="#1357" id="1357">1357</a>
+<a href="#1358" id="1358">1358</a>
+<a href="#1359" id="1359">1359</a>
+<a href="#1360" id="1360">1360</a>
+<a href="#1361" id="1361">1361</a>
+<a href="#1362" id="1362">1362</a>
+<a href="#1363" id="1363">1363</a>
+<a href="#1364" id="1364">1364</a>
+<a href="#1365" id="1365">1365</a>
+<a href="#1366" id="1366">1366</a>
+<a href="#1367" id="1367">1367</a>
+<a href="#1368" id="1368">1368</a>
+<a href="#1369" id="1369">1369</a>
+<a href="#1370" id="1370">1370</a>
+<a href="#1371" id="1371">1371</a>
+<a href="#1372" id="1372">1372</a>
+<a href="#1373" id="1373">1373</a>
+<a href="#1374" id="1374">1374</a>
+<a href="#1375" id="1375">1375</a>
+<a href="#1376" id="1376">1376</a>
+<a href="#1377" id="1377">1377</a>
+<a href="#1378" id="1378">1378</a>
+<a href="#1379" id="1379">1379</a>
+<a href="#1380" id="1380">1380</a>
+<a href="#1381" id="1381">1381</a>
+<a href="#1382" id="1382">1382</a>
+<a href="#1383" id="1383">1383</a>
+<a href="#1384" id="1384">1384</a>
+<a href="#1385" id="1385">1385</a>
+<a href="#1386" id="1386">1386</a>
+<a href="#1387" id="1387">1387</a>
+<a href="#1388" id="1388">1388</a>
+<a href="#1389" id="1389">1389</a>
+<a href="#1390" id="1390">1390</a>
+<a href="#1391" id="1391">1391</a>
+<a href="#1392" id="1392">1392</a>
+<a href="#1393" id="1393">1393</a>
+<a href="#1394" id="1394">1394</a>
+<a href="#1395" id="1395">1395</a>
+<a href="#1396" id="1396">1396</a>
+<a href="#1397" id="1397">1397</a>
+<a href="#1398" id="1398">1398</a>
+<a href="#1399" id="1399">1399</a>
+<a href="#1400" id="1400">1400</a>
+<a href="#1401" id="1401">1401</a>
+<a href="#1402" id="1402">1402</a>
+<a href="#1403" id="1403">1403</a>
+<a href="#1404" id="1404">1404</a>
+<a href="#1405" id="1405">1405</a>
+<a href="#1406" id="1406">1406</a>
+<a href="#1407" id="1407">1407</a>
+<a href="#1408" id="1408">1408</a>
+<a href="#1409" id="1409">1409</a>
+<a href="#1410" id="1410">1410</a>
+<a href="#1411" id="1411">1411</a>
+<a href="#1412" id="1412">1412</a>
+<a href="#1413" id="1413">1413</a>
+<a href="#1414" id="1414">1414</a>
+<a href="#1415" id="1415">1415</a>
+<a href="#1416" id="1416">1416</a>
+<a href="#1417" id="1417">1417</a>
+<a href="#1418" id="1418">1418</a>
+<a href="#1419" id="1419">1419</a>
+<a href="#1420" id="1420">1420</a>
+<a href="#1421" id="1421">1421</a>
+<a href="#1422" id="1422">1422</a>
+<a href="#1423" id="1423">1423</a>
+<a href="#1424" id="1424">1424</a>
+<a href="#1425" id="1425">1425</a>
+<a href="#1426" id="1426">1426</a>
+<a href="#1427" id="1427">1427</a>
+<a href="#1428" id="1428">1428</a>
+<a href="#1429" id="1429">1429</a>
+<a href="#1430" id="1430">1430</a>
+<a href="#1431" id="1431">1431</a>
+<a href="#1432" id="1432">1432</a>
+<a href="#1433" id="1433">1433</a></pre></div><pre class="rust"><code><span class="kw">extern crate </span>proc_macro;
 
 <span class="kw">use </span>proc_macro::TokenStream;
 <span class="kw">use </span>quote::{format_ident, quote};
@@ -1282,10 +1449,11 @@
 <span class="kw">use </span>cu29_runtime::curuntime::{
     compute_runtime_plan, find_task_type_for_id, CuExecutionLoop, CuExecutionUnit, CuTaskType,
 };
+<span class="kw">use </span>cu29_traits::CuResult;
 
 <span class="attr">#[cfg(feature = <span class="string">"macro_debug"</span>)]
 </span><span class="kw">use </span>format::{highlight_rust_code, rustfmt_generated_code};
-<span class="kw">use </span>proc_macro2::Ident;
+<span class="kw">use </span>proc_macro2::{Ident, Span};
 
 <span class="kw">mod </span>format;
 <span class="kw">mod </span>utils;
@@ -1298,17 +1466,34 @@
     syn::Index::from(i <span class="kw">as </span>usize)
 }
 
+<span class="attr">#[inline(always)]
+</span><span class="kw">fn </span>return_error(msg: String) -&gt; TokenStream {
+    syn::Error::new(Span::call_site(), msg)
+        .to_compile_error()
+        .into()
+}
+
 <span class="doccomment">/// Generates the CopperList content type from a config.
 /// gen_cumsgs!("path/to/config.toml")
 /// It will create a new type called CuMsgs you can pass to the log reader for decoding:
 </span><span class="attr">#[proc_macro]
 </span><span class="kw">pub fn </span>gen_cumsgs(config_path_lit: TokenStream) -&gt; TokenStream {
     <span class="kw">let </span>config = <span class="macro">parse_macro_input!</span>(config_path_lit <span class="kw">as </span>LitStr).value();
+    <span class="kw">if </span>!std::path::Path::new(<span class="kw-2">&amp;</span>config_full_path(<span class="kw-2">&amp;</span>config)).exists() {
+        <span class="kw">return </span>return_error(<span class="macro">format!</span>(
+            <span class="string">"The configuration file `{}` does not exist. Please provide a valid path."</span>,
+            config
+        ));
+    }
     <span class="attr">#[cfg(feature = <span class="string">"macro_debug"</span>)]
     </span><span class="macro">eprintln!</span>(<span class="string">"[gen culist support with {:?}]"</span>, config);
-    <span class="kw">let </span>cuconfig = read_config(<span class="kw-2">&amp;</span>config);
-    <span class="kw">let </span>runtime_plan: CuExecutionLoop =
-        compute_runtime_plan(<span class="kw-2">&amp;</span>cuconfig).expect(<span class="string">"Could not compute runtime plan"</span>);
+    <span class="kw">let </span><span class="prelude-val">Ok</span>(cuconfig) = read_config(<span class="kw-2">&amp;</span>config) <span class="kw">else </span>{
+        <span class="kw">return </span>return_error(<span class="macro">format!</span>(<span class="string">"Failed to read the configuration file: {}"</span>, config));
+    };
+    <span class="kw">let </span>runtime_plan: CuExecutionLoop = <span class="kw">match </span>compute_runtime_plan(<span class="kw-2">&amp;</span>cuconfig) {
+        <span class="prelude-val">Ok</span>(plan) =&gt; plan,
+        <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span>return_error(<span class="macro">format!</span>(<span class="string">"Could not compute runtime plan: {}"</span>, e)),
+    };
 
     <span class="comment">// Give a name compatible with a struct to match the task ids to their output in the CuMsgs tuple.
     </span><span class="kw">let </span>all_tasks_member_ids: Vec&lt;String&gt; = cuconfig
@@ -1446,12 +1631,12 @@
                 <span class="kw">let </span>inputs: Vec&lt;Type&gt; = step
                     .input_msg_indices_types
                     .iter()
-                    .map(|(<span class="kw">_</span>, t)| parse_str::&lt;Type&gt;(<span class="macro">format!</span>(<span class="string">"_CuMsg&lt;{}&gt;"</span>, t).as_str()).unwrap())
+                    .map(|(<span class="kw">_</span>, t)| parse_str::&lt;Type&gt;(<span class="macro">format!</span>(<span class="string">"_CuMsg&lt;{t}&gt;"</span>).as_str()).unwrap())
                     .collect();
                 <span class="kw">let </span>output: <span class="prelude-ty">Option</span>&lt;Type&gt; = step
                     .output_msg_index_type
                     .as_ref()
-                    .map(|(<span class="kw">_</span>, t)| parse_str::&lt;Type&gt;(<span class="macro">format!</span>(<span class="string">"_CuMsg&lt;{}&gt;"</span>, t).as_str()).unwrap());
+                    .map(|(<span class="kw">_</span>, t)| parse_str::&lt;Type&gt;(<span class="macro">format!</span>(<span class="string">"_CuMsg&lt;{t}&gt;"</span>).as_str()).unwrap());
                 <span class="kw">let </span>no_output = parse_str::&lt;Type&gt;(<span class="string">"_CuMsg&lt;()&gt;"</span>).unwrap();
                 <span class="kw">let </span>output = output.as_ref().unwrap_or(<span class="kw-2">&amp;</span>no_output);
                 <span class="macro">quote!</span> {
@@ -1471,7 +1656,7 @@
 }
 
 <span class="doccomment">/// Adds #[copper_runtime(config = "path", sim_mode = false/true)] to your application struct to generate the runtime.
-/// if sim_mode is ommited, it is set to false.
+/// if sim_mode is omitted, it is set to false.
 /// This will add a "runtime" field to your struct and implement the "new" and "run" methods.
 </span><span class="attr">#[proc_macro_attribute]
 </span><span class="kw">pub fn </span>copper_runtime(args: TokenStream, input: TokenStream) -&gt; TokenStream {
@@ -1509,19 +1694,33 @@
     </span><span class="macro">parse_macro_input!</span>(args with attribute_config_parser);
 
     <span class="comment">// Check if the config file was provided
-    </span><span class="kw">let </span>config_file = config_file
-        .expect(<span class="string">"Expected config file attribute like #[CopperRuntime(config = \"path\")]"</span>)
-        .value();
+    </span><span class="kw">let </span>config_file = <span class="kw">match </span>config_file {
+        <span class="prelude-val">Some</span>(file) =&gt; file.value(),
+        <span class="prelude-val">None </span>=&gt; {
+            <span class="kw">return </span>return_error(
+                <span class="string">"Expected config file attribute like #[CopperRuntime(config = \"path\")]"
+                    </span>.to_string(),
+            )
+        }
+    };
 
-    <span class="kw">let </span>copper_config = read_config(<span class="kw-2">&amp;</span>config_file);
-    <span class="kw">let </span>copper_config_content = read_to_string(config_full_path(config_file.as_str())).expect(
-        <span class="string">"Could not read the config file (should not happen because we just succeeded just before)."</span>,
-    );
+    <span class="kw">let </span><span class="prelude-val">Ok</span>(copper_config) = read_config(<span class="kw-2">&amp;</span>config_file) <span class="kw">else </span>{
+        <span class="kw">return </span>return_error(<span class="macro">format!</span>(
+            <span class="string">"Failed to read the configuration file: {}"</span>,
+            config_file
+        ));
+    };
+    <span class="kw">let </span>copper_config_content = <span class="kw">match </span>read_to_string(config_full_path(config_file.as_str())) {
+        <span class="prelude-val">Ok</span>(ok) =&gt; ok,
+        <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span>return_error(<span class="macro">format!</span>(<span class="string">"Could not read the config file (should not happen because we just succeeded just before). {}"</span>, e))
+    };
 
     <span class="attr">#[cfg(feature = <span class="string">"macro_debug"</span>)]
     </span><span class="macro">eprintln!</span>(<span class="string">"[runtime plan]"</span>);
-    <span class="kw">let </span>runtime_plan: CuExecutionLoop =
-        compute_runtime_plan(<span class="kw-2">&amp;</span>copper_config).expect(<span class="string">"Could not compute runtime plan"</span>);
+    <span class="kw">let </span>runtime_plan: CuExecutionLoop = <span class="kw">match </span>compute_runtime_plan(<span class="kw-2">&amp;</span>copper_config) {
+        <span class="prelude-val">Ok</span>(plan) =&gt; plan,
+        <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span>return_error(<span class="macro">format!</span>(<span class="string">"Could not compute runtime plan: {}"</span>, e)),
+    };
     <span class="attr">#[cfg(feature = <span class="string">"macro_debug"</span>)]
     </span><span class="macro">eprintln!</span>(<span class="string">"{:?}"</span>, runtime_plan);
 
@@ -1538,17 +1737,17 @@
             CuTaskType::Source =&gt; {
                 <span class="kw">let </span>msg_type = copper_config
                     .get_node_output_msg_type(task_id.as_str())
-                    .unwrap_or_else(|| <span class="macro">panic!</span>(<span class="string">"CuSrcTask {} should have an outgoing connection with a valid output msg type"</span>, task_id));
-                <span class="kw">let </span>sim_task_name = <span class="macro">format!</span>(<span class="string">"cu29::simulation::CuSimSrcTask&lt;{}&gt;"</span>, msg_type);
-                parse_str(sim_task_name.as_str()).unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">"Could not build the placeholder for simulation: {}"</span>, sim_task_name))
+                    .unwrap_or_else(|| <span class="macro">panic!</span>(<span class="string">"CuSrcTask {task_id} should have an outgoing connection with a valid output msg type"</span>));
+                <span class="kw">let </span>sim_task_name = <span class="macro">format!</span>(<span class="string">"cu29::simulation::CuSimSrcTask&lt;{msg_type}&gt;"</span>);
+                parse_str(sim_task_name.as_str()).unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">"Could not build the placeholder for simulation: {sim_task_name}"</span>))
             }
             CuTaskType::Regular =&gt; stype.clone(),
             CuTaskType::Sink =&gt; {
                 <span class="kw">let </span>msg_type = copper_config
                     .get_node_input_msg_type(task_id.as_str())
-                    .unwrap_or_else(|| <span class="macro">panic!</span>(<span class="string">"CuSinkTask {} should have an incoming connection with a valid input msg type"</span>, task_id));
-                <span class="kw">let </span>sim_task_name = <span class="macro">format!</span>(<span class="string">"cu29::simulation::CuSimSinkTask&lt;{}&gt;"</span>, msg_type);
-                parse_str(sim_task_name.as_str()).unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">"Could not build the placeholder for simulation: {}"</span>, sim_task_name))
+                    .unwrap_or_else(|| <span class="macro">panic!</span>(<span class="string">"CuSinkTask {task_id} should have an incoming connection with a valid input msg type"</span>));
+                <span class="kw">let </span>sim_task_name = <span class="macro">format!</span>(<span class="string">"cu29::simulation::CuSimSinkTask&lt;{msg_type}&gt;"</span>);
+                parse_str(sim_task_name.as_str()).unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">"Could not build the placeholder for simulation: {sim_task_name}"</span>))
             }
         })
         .collect();
@@ -2114,7 +2313,7 @@
     <span class="kw">let </span>(new, run_one_iteration, start_all_tasks, stop_all_tasks, run) = <span class="kw">if </span>sim_mode {
         (
             <span class="macro">quote!</span> {
-                <span class="kw">pub fn </span>new&lt;F&gt;(clock:_RobotClock, unified_logger: _Arc&lt;_Mutex&lt;_UnifiedLoggerWrite&gt;&gt;, sim_callback: <span class="kw-2">&amp;mut </span>F) -&gt; _CuResult&lt;<span class="self">Self</span>&gt;
+                <span class="kw">pub fn </span>new&lt;F&gt;(clock:_RobotClock, unified_logger: _Arc&lt;_Mutex&lt;_UnifiedLoggerWrite&gt;&gt;, config_override: <span class="prelude-ty">Option</span>&lt;_CuConfig&gt;, sim_callback: <span class="kw-2">&amp;mut </span>F) -&gt; _CuResult&lt;<span class="self">Self</span>&gt;
                 <span class="kw">where </span>F: FnMut(SimStep) -&gt; cu29::simulation::SimOverride,
             },
             <span class="macro">quote!</span> {
@@ -2137,7 +2336,7 @@
     } <span class="kw">else </span>{
         (
             <span class="macro">quote!</span> {
-                <span class="kw">pub fn </span>new(clock:_RobotClock, unified_logger: _Arc&lt;_Mutex&lt;_UnifiedLoggerWrite&gt;&gt;) -&gt; _CuResult&lt;<span class="self">Self</span>&gt;
+                <span class="kw">pub fn </span>new(clock:_RobotClock, unified_logger: _Arc&lt;_Mutex&lt;_UnifiedLoggerWrite&gt;&gt;, config_override: <span class="prelude-ty">Option</span>&lt;_CuConfig&gt;) -&gt; _CuResult&lt;<span class="self">Self</span>&gt;
             },
             <span class="macro">quote!</span> {
                 <span class="kw">pub fn </span>run_one_iteration(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; _CuResult&lt;()&gt;
@@ -2255,20 +2454,32 @@
 
             #new {
                 <span class="kw">let </span>config_filename = #config_file;
-                <span class="kw">let </span>config = <span class="kw">if </span>std::path::Path::new(config_filename).exists() {
-                    <span class="macro">debug!</span>(<span class="string">"Reading configuration from file: {}"</span>, config_filename);
+                <span class="kw">let </span>config = <span class="kw">if </span>config_override.is_some() {
+                    <span class="kw">let </span>overridden_config = config_override.unwrap();
+                    <span class="macro">debug!</span>(<span class="string">"CuConfig: Overridden programmatically: {}"</span>, <span class="kw-2">&amp;</span>overridden_config.serialize_ron());
+                    overridden_config
+                } <span class="kw">else if </span>std::path::Path::new(config_filename).exists() {
+                    <span class="macro">debug!</span>(<span class="string">"CuConfig: Reading configuration from file: {}"</span>, config_filename);
                     _read_configuration(config_filename)<span class="question-mark">?
                 </span>} <span class="kw">else </span>{
                     <span class="kw">let </span>original_config = <span class="self">Self</span>::get_original_config();
-                    <span class="macro">debug!</span>(<span class="string">"Reading configuration from the original configuration. {}"</span>, <span class="kw-2">&amp;</span>original_config);
+                    <span class="macro">debug!</span>(<span class="string">"CuConfig: Using the original configuration the project was compiled with: {}"</span>, <span class="kw-2">&amp;</span>original_config);
                     _read_configuration_str(original_config)<span class="question-mark">?
                 </span>};
 
+                <span class="comment">// For simple cases we can say the section is just a bunch of Copper Lists.
+                // But we can now have allocations outside of it so we can override it from the config.
+                </span><span class="kw">let </span><span class="kw-2">mut </span>default_section_size = std::mem::size_of::&lt;CuList&gt;() * <span class="number">64</span>;
+                <span class="comment">// Check if there is a logging configuration with section_size_mib
+                </span><span class="kw">if let </span><span class="prelude-val">Some</span>(section_size_mib) = config.logging.as_ref().and_then(|l| l.section_size_mib) {
+                    <span class="comment">// Convert MiB to bytes
+                    </span>default_section_size = section_size_mib <span class="kw">as </span>usize * <span class="number">1024usize </span>* <span class="number">1024usize</span>;
+                }
                 <span class="kw">let </span>copperlist_stream = _stream_write::&lt;CuList&gt;(
                     unified_logger.clone(),
                     _UnifiedLogType::CopperList,
-                    std::mem::size_of::&lt;CuList&gt;() * <span class="number">64</span>, <span class="comment">// FIXME: make this a config
-                    // the 2 sizes are not directly related as we encode the CuList but we can
+                    default_section_size,
+                    <span class="comment">// the 2 sizes are not directly related as we encode the CuList but we can
                     // assume the encoded size is close or lower than the non encoded one
                     // This is to be sure we have the size of at least a Culist and some.
                 </span>);
@@ -2295,6 +2506,119 @@
         }
     };
 
+    <span class="kw">let </span>builder_name = <span class="macro">format_ident!</span>(<span class="string">"{}Builder"</span>, name);
+    <span class="kw">let </span>(
+        builder_struct,
+        builder_new,
+        builder_impl,
+        builder_sim_callback_method,
+        builder_build_sim_callback_arg,
+    ) = <span class="kw">if </span>sim_mode {
+        (
+            <span class="macro">quote!</span> {
+                <span class="kw">pub struct </span>#builder_name &lt;<span class="lifetime">'a</span>, F&gt; {
+                    clock: <span class="prelude-ty">Option</span>&lt;_RobotClock&gt;,
+                    unified_logger: <span class="prelude-ty">Option</span>&lt;_Arc&lt;_Mutex&lt;_UnifiedLoggerWrite&gt;&gt;&gt;,
+                    config_override: <span class="prelude-ty">Option</span>&lt;_CuConfig&gt;,
+                    sim_callback: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="kw-2">mut </span>F&gt;
+                }
+            },
+            <span class="macro">quote!</span> {
+                <span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+                    <span class="self">Self </span>{
+                        clock: <span class="prelude-val">None</span>,
+                        unified_logger: <span class="prelude-val">None</span>,
+                        config_override: <span class="prelude-val">None</span>,
+                        sim_callback: <span class="prelude-val">None</span>,
+                    }
+                }
+            },
+            <span class="macro">quote!</span> {
+                <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, F&gt; #builder_name &lt;<span class="lifetime">'a</span>, F&gt;
+                <span class="kw">where
+                    </span>F: FnMut(SimStep) -&gt; cu29::simulation::SimOverride,
+            },
+            <span class="prelude-val">Some</span>(<span class="macro">quote!</span> {
+                <span class="kw">fn </span>with_sim_callback(<span class="kw-2">mut </span><span class="self">self</span>, sim_callback: <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="kw-2">mut </span>F) -&gt; <span class="self">Self
+                </span>{
+                    <span class="self">self</span>.sim_callback = <span class="prelude-val">Some</span>(sim_callback);
+                    <span class="self">self
+                </span>}
+            }),
+            <span class="prelude-val">Some</span>(<span class="macro">quote!</span> {
+                <span class="self">self</span>.sim_callback
+                    .ok_or(_CuError::from(<span class="string">"Sim callback missing from builder"</span>))<span class="question-mark">?</span>,
+            }),
+        )
+    } <span class="kw">else </span>{
+        (
+            <span class="macro">quote!</span> {
+                <span class="kw">pub struct </span>#builder_name {
+                    clock: <span class="prelude-ty">Option</span>&lt;_RobotClock&gt;,
+                    unified_logger: <span class="prelude-ty">Option</span>&lt;_Arc&lt;_Mutex&lt;_UnifiedLoggerWrite&gt;&gt;&gt;,
+                    config_override: <span class="prelude-ty">Option</span>&lt;_CuConfig&gt;,
+                }
+            },
+            <span class="macro">quote!</span> {
+                <span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+                    <span class="self">Self </span>{
+                        clock: <span class="prelude-val">None</span>,
+                        unified_logger: <span class="prelude-val">None</span>,
+                        config_override: <span class="prelude-val">None</span>,
+                    }
+                }
+            },
+            <span class="macro">quote!</span> {
+                <span class="kw">impl </span>#builder_name
+            },
+            <span class="prelude-val">None</span>,
+            <span class="prelude-val">None</span>,
+        )
+    };
+
+    <span class="kw">let </span>builder = <span class="macro">quote!</span> {
+        #builder_struct
+
+        #builder_impl
+        {
+            #builder_new
+
+            <span class="kw">pub fn </span>with_clock(<span class="kw-2">mut </span><span class="self">self</span>, clock: _RobotClock) -&gt; <span class="self">Self </span>{
+                <span class="self">self</span>.clock = <span class="prelude-val">Some</span>(clock);
+                <span class="self">self
+            </span>}
+
+            <span class="kw">pub fn </span>with_unified_logger(<span class="kw-2">mut </span><span class="self">self</span>, unified_logger: _Arc&lt;_Mutex&lt;_UnifiedLoggerWrite&gt;&gt;) -&gt; <span class="self">Self </span>{
+                <span class="self">self</span>.unified_logger = <span class="prelude-val">Some</span>(unified_logger);
+                <span class="self">self
+            </span>}
+
+            <span class="kw">pub fn </span>with_context(<span class="kw-2">mut </span><span class="self">self</span>, copper_ctx: <span class="kw-2">&amp;</span>_CopperContext) -&gt; <span class="self">Self </span>{
+                <span class="self">self</span>.clock = <span class="prelude-val">Some</span>(copper_ctx.clock.clone());
+                <span class="self">self</span>.unified_logger = <span class="prelude-val">Some</span>(copper_ctx.unified_logger.clone());
+                <span class="self">self
+            </span>}
+
+            <span class="kw">pub fn </span>with_config(<span class="kw-2">mut </span><span class="self">self</span>, config_override: _CuConfig) -&gt; <span class="self">Self </span>{
+                    <span class="self">self</span>.config_override = <span class="prelude-val">Some</span>(config_override);
+                    <span class="self">self
+            </span>}
+
+            #builder_sim_callback_method
+
+            <span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; _CuResult&lt;#name&gt; {
+                #name::new(
+                    <span class="self">self</span>.clock
+                        .ok_or(_CuError::from(<span class="string">"Clock missing from builder"</span>))<span class="question-mark">?</span>,
+                    <span class="self">self</span>.unified_logger
+                        .ok_or(_CuError::from(<span class="string">"Unified logger missing from builder"</span>))<span class="question-mark">?</span>,
+                    <span class="self">self</span>.config_override,
+                    #builder_build_sim_callback_arg
+                )
+            }
+        }
+    };
+
     <span class="attr">#[cfg(feature = <span class="string">"macro_debug"</span>)]
     </span><span class="macro">eprintln!</span>(<span class="string">"[build result]"</span>);
     <span class="comment">// Convert the modified struct back into a TokenStream
@@ -2315,6 +2639,7 @@
         <span class="kw">use </span>cu29::config::read_configuration <span class="kw">as </span>_read_configuration;
         <span class="kw">use </span>cu29::config::read_configuration_str <span class="kw">as </span>_read_configuration_str;
         <span class="kw">use </span>cu29::curuntime::CuRuntime <span class="kw">as </span>_CuRuntime;
+        <span class="kw">use </span>cu29::curuntime::CopperContext <span class="kw">as </span>_CopperContext;
         <span class="kw">use </span>cu29::CuResult <span class="kw">as </span>_CuResult;
         <span class="kw">use </span>cu29::CuError <span class="kw">as </span>_CuError;
         <span class="kw">use </span>cu29::cutask::CuSrcTask <span class="kw">as </span>_CuSrcTask;
@@ -2363,6 +2688,7 @@
 
         #runtime_impl
 
+        #builder
     };
     <span class="kw">let </span>tokens: TokenStream = result.into();
 
@@ -2378,11 +2704,10 @@
     tokens
 }
 
-<span class="kw">fn </span>read_config(config_file: <span class="kw-2">&amp;</span>str) -&gt; CuConfig {
+<span class="kw">fn </span>read_config(config_file: <span class="kw-2">&amp;</span>str) -&gt; CuResult&lt;CuConfig&gt; {
     <span class="kw">let </span>filename = config_full_path(config_file);
 
     read_configuration(filename.as_str())
-        .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">"Failed to read configuration file: {}"</span>, filename))
 }
 
 <span class="kw">fn </span>config_full_path(config_file: <span class="kw-2">&amp;</span>str) -&gt; String {
@@ -2423,7 +2748,7 @@
         .iter()
         .map(|name| {
             parse_str(name)
-                .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">"Could not transform {} into a Task Rust type."</span>, name))
+                .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">"Could not transform {name} into a Task Rust type."</span>))
         })
         .collect();
     (all_tasks_ids, all_task_cutype, all_types_names, all_types)
@@ -2439,9 +2764,8 @@
                     <span class="prelude-val">Some</span>(
                         parse_str::&lt;Type&gt;(output_msg_type.as_str()).unwrap_or_else(|<span class="kw">_</span>| {
                             <span class="macro">panic!</span>(
-                                <span class="string">"Could not transform {} into a message Rust type."</span>,
-                                output_msg_type
-                            )
+                                <span class="string">"Could not transform {output_msg_type} into a message Rust type."
+                            </span>)
                         }),
                     )
                 } <span class="kw">else </span>{
@@ -2528,6 +2852,16 @@
                     .finish()
             }
         }
+    }
+}
+
+<span class="attr">#[cfg(test)]
+</span><span class="kw">mod </span>tests {
+    <span class="comment">// See tests/compile_file directory for more information
+    </span><span class="attr">#[test]
+    </span><span class="kw">fn </span>test_compile_fail() {
+        <span class="kw">let </span>t = trybuild::TestCases::new();
+        t.compile_fail(<span class="string">"tests/compile_fail/*/*.rs"</span>);
     }
 }
 </code></pre></div></section></main></body></html>

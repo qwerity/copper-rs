@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `core/cu29_runtime/src/config.rs`."><title>config.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="cu29_rendercfg" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0-nightly (c26db435b 2024-12-15)" data-channel="nightly" data-search-js="search-92e6798f.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">cu29_rendercfg/</div>config.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `core/cu29_runtime/src/config.rs`."><title>config.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="cu29_rendercfg" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (48a426eca 2025-01-12)" data-channel="nightly" data-search-js="search-75f5ac3e.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">cu29_rendercfg/</div>config.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -683,7 +683,67 @@
 <a href="#682" id="682">682</a>
 <a href="#683" id="683">683</a>
 <a href="#684" id="684">684</a>
-<a href="#685" id="685">685</a></pre></div><pre class="rust"><code><span class="doccomment">//! This module defines the configuration of the copper runtime.
+<a href="#685" id="685">685</a>
+<a href="#686" id="686">686</a>
+<a href="#687" id="687">687</a>
+<a href="#688" id="688">688</a>
+<a href="#689" id="689">689</a>
+<a href="#690" id="690">690</a>
+<a href="#691" id="691">691</a>
+<a href="#692" id="692">692</a>
+<a href="#693" id="693">693</a>
+<a href="#694" id="694">694</a>
+<a href="#695" id="695">695</a>
+<a href="#696" id="696">696</a>
+<a href="#697" id="697">697</a>
+<a href="#698" id="698">698</a>
+<a href="#699" id="699">699</a>
+<a href="#700" id="700">700</a>
+<a href="#701" id="701">701</a>
+<a href="#702" id="702">702</a>
+<a href="#703" id="703">703</a>
+<a href="#704" id="704">704</a>
+<a href="#705" id="705">705</a>
+<a href="#706" id="706">706</a>
+<a href="#707" id="707">707</a>
+<a href="#708" id="708">708</a>
+<a href="#709" id="709">709</a>
+<a href="#710" id="710">710</a>
+<a href="#711" id="711">711</a>
+<a href="#712" id="712">712</a>
+<a href="#713" id="713">713</a>
+<a href="#714" id="714">714</a>
+<a href="#715" id="715">715</a>
+<a href="#716" id="716">716</a>
+<a href="#717" id="717">717</a>
+<a href="#718" id="718">718</a>
+<a href="#719" id="719">719</a>
+<a href="#720" id="720">720</a>
+<a href="#721" id="721">721</a>
+<a href="#722" id="722">722</a>
+<a href="#723" id="723">723</a>
+<a href="#724" id="724">724</a>
+<a href="#725" id="725">725</a>
+<a href="#726" id="726">726</a>
+<a href="#727" id="727">727</a>
+<a href="#728" id="728">728</a>
+<a href="#729" id="729">729</a>
+<a href="#730" id="730">730</a>
+<a href="#731" id="731">731</a>
+<a href="#732" id="732">732</a>
+<a href="#733" id="733">733</a>
+<a href="#734" id="734">734</a>
+<a href="#735" id="735">735</a>
+<a href="#736" id="736">736</a>
+<a href="#737" id="737">737</a>
+<a href="#738" id="738">738</a>
+<a href="#739" id="739">739</a>
+<a href="#740" id="740">740</a>
+<a href="#741" id="741">741</a>
+<a href="#742" id="742">742</a>
+<a href="#743" id="743">743</a>
+<a href="#744" id="744">744</a>
+<a href="#745" id="745">745</a></pre></div><pre class="rust"><code><span class="doccomment">//! This module defines the configuration of the copper runtime.
 //! The configuration is a directed graph where nodes are tasks and edges are connections between tasks.
 //! The configuration is serialized in the RON format.
 //! The configuration is used to generate the runtime code at compile time.
@@ -719,7 +779,7 @@
             <span class="kw">if </span>!first {
                 <span class="macro">write!</span>(f, <span class="string">", "</span>)<span class="question-mark">?</span>;
             }
-            <span class="macro">write!</span>(f, <span class="string">"{}: {}"</span>, key, value)<span class="question-mark">?</span>;
+            <span class="macro">write!</span>(f, <span class="string">"{key}: {value}"</span>)<span class="question-mark">?</span>;
             first = <span class="bool-val">false</span>;
         }
         <span class="macro">write!</span>(f, <span class="string">"}}"</span>)
@@ -790,7 +850,7 @@
         <span class="kw">if let </span>RonValue::Bool(v) = value.<span class="number">0 </span>{
             v
         } <span class="kw">else </span>{
-            <span class="macro">panic!</span>(<span class="string">"Expected a Boolean variant but got {:?}"</span>, value)
+            <span class="macro">panic!</span>(<span class="string">"Expected a Boolean variant but got {value:?}"</span>)
         }
     }
 }
@@ -801,10 +861,10 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(i) = num.as_i64() {
                 i <span class="kw">as </span>u8
             } <span class="kw">else </span>{
-                <span class="macro">panic!</span>(<span class="string">"Expected an integer value but got {:?}"</span>, value)
+                <span class="macro">panic!</span>(<span class="string">"Expected an integer value but got {value:?}"</span>)
             }
         } <span class="kw">else </span>{
-            <span class="macro">panic!</span>(<span class="string">"Expected a Number variant but got {:?}"</span>, value)
+            <span class="macro">panic!</span>(<span class="string">"Expected a Number variant but got {value:?}"</span>)
         }
     }
 }
@@ -815,10 +875,10 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(i) = num.as_i64() {
                 i <span class="kw">as </span>u32
             } <span class="kw">else </span>{
-                <span class="macro">panic!</span>(<span class="string">"Expected an integer value but got {:?}"</span>, value)
+                <span class="macro">panic!</span>(<span class="string">"Expected an integer value but got {value:?}"</span>)
             }
         } <span class="kw">else </span>{
-            <span class="macro">panic!</span>(<span class="string">"Expected a Number variant but got {:?}"</span>, value)
+            <span class="macro">panic!</span>(<span class="string">"Expected a Number variant but got {value:?}"</span>)
         }
     }
 }
@@ -829,10 +889,10 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(i) = num.as_i64() {
                 i <span class="kw">as </span>i32
             } <span class="kw">else </span>{
-                <span class="macro">panic!</span>(<span class="string">"Expected an integer value but got {:?}"</span>, value)
+                <span class="macro">panic!</span>(<span class="string">"Expected an integer value but got {value:?}"</span>)
             }
         } <span class="kw">else </span>{
-            <span class="macro">panic!</span>(<span class="string">"Expected a Number variant but got {:?}"</span>, value)
+            <span class="macro">panic!</span>(<span class="string">"Expected a Number variant but got {value:?}"</span>)
         }
     }
 }
@@ -843,10 +903,10 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = num.as_f64() {
                 f
             } <span class="kw">else </span>{
-                <span class="macro">panic!</span>(<span class="string">"Expected a float value but got {:?}"</span>, value)
+                <span class="macro">panic!</span>(<span class="string">"Expected a float value but got {value:?}"</span>)
             }
         } <span class="kw">else </span>{
-            <span class="macro">panic!</span>(<span class="string">"Expected a Number variant but got {:?}"</span>, value)
+            <span class="macro">panic!</span>(<span class="string">"Expected a Number variant but got {value:?}"</span>)
         }
     }
 }
@@ -871,13 +931,13 @@
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0 </span>{
             RonValue::Number(n) =&gt; <span class="macro">write!</span>(f, <span class="string">"{}"</span>, n.as_i64().unwrap()),
-            RonValue::String(s) =&gt; <span class="macro">write!</span>(f, <span class="string">"{}"</span>, s),
-            RonValue::Bool(b) =&gt; <span class="macro">write!</span>(f, <span class="string">"{}"</span>, b),
-            RonValue::Map(m) =&gt; <span class="macro">write!</span>(f, <span class="string">"{:?}"</span>, m),
-            RonValue::Char(c) =&gt; <span class="macro">write!</span>(f, <span class="string">"{:?}"</span>, c),
+            RonValue::String(s) =&gt; <span class="macro">write!</span>(f, <span class="string">"{s}"</span>),
+            RonValue::Bool(b) =&gt; <span class="macro">write!</span>(f, <span class="string">"{b}"</span>),
+            RonValue::Map(m) =&gt; <span class="macro">write!</span>(f, <span class="string">"{m:?}"</span>),
+            RonValue::Char(c) =&gt; <span class="macro">write!</span>(f, <span class="string">"{c:?}"</span>),
             RonValue::Unit =&gt; <span class="macro">write!</span>(f, <span class="string">"unit"</span>),
-            RonValue::Option(o) =&gt; <span class="macro">write!</span>(f, <span class="string">"{:?}"</span>, o),
-            RonValue::Seq(s) =&gt; <span class="macro">write!</span>(f, <span class="string">"{:?}"</span>, s),
+            RonValue::Option(o) =&gt; <span class="macro">write!</span>(f, <span class="string">"{o:?}"</span>),
+            RonValue::Seq(s) =&gt; <span class="macro">write!</span>(f, <span class="string">"{s:?}"</span>),
         }
     }
 }
@@ -953,7 +1013,7 @@
     <span class="comment">// Destination node id.
     </span>dst: String,
 
-    <span class="doccomment">/// Message type exchanged betwee src and dst.
+    <span class="doccomment">/// Message type exchanged between src and dst.
     </span><span class="kw">pub </span>msg: String,
 
     <span class="doccomment">/// Tells Copper to batch messages before sending the buffer to the next node.
@@ -971,7 +1031,8 @@
 </span><span class="kw">pub struct </span>CuConfig {
     <span class="comment">// This is not what is directly serialized, see the custom serialization below.
     </span><span class="kw">pub </span>graph: StableDiGraph&lt;Node, Cnx, NodeId&gt;,
-    monitor: <span class="prelude-ty">Option</span>&lt;MonitorConfig&gt;,
+    <span class="kw">pub </span>monitor: <span class="prelude-ty">Option</span>&lt;MonitorConfig&gt;,
+    <span class="kw">pub </span>logging: <span class="prelude-ty">Option</span>&lt;LoggingConfig&gt;,
 }
 
 <span class="attr">#[derive(Serialize, Deserialize, Default, Debug, Clone)]
@@ -994,12 +1055,27 @@
     }
 }
 
+<span class="kw">fn </span>default_as_true() -&gt; bool {
+    <span class="bool-val">true
+</span>}
+
+<span class="attr">#[derive(Serialize, Deserialize, Default, Debug, Clone)]
+</span><span class="kw">pub struct </span>LoggingConfig {
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">"Option::is_none"</span>)]
+    </span><span class="kw">pub </span>slab_size_mib: <span class="prelude-ty">Option</span>&lt;u64&gt;,
+    <span class="attr">#[serde(skip_serializing_if = <span class="string">"Option::is_none"</span>)]
+    </span><span class="kw">pub </span>section_size_mib: <span class="prelude-ty">Option</span>&lt;u64&gt;,
+    <span class="attr">#[serde(default = <span class="string">"default_as_true"</span>, skip_serializing_if = <span class="string">"Clone::clone"</span>)]
+    </span><span class="kw">pub </span>enable_task_logging: bool,
+}
+
 <span class="doccomment">/// The config is a list of tasks and their connections.
 </span><span class="attr">#[derive(Serialize, Deserialize, Default)]
 </span><span class="kw">struct </span>CuConfigRepresentation {
     tasks: Vec&lt;Node&gt;,
     cnx: Vec&lt;Cnx&gt;,
     monitor: <span class="prelude-ty">Option</span>&lt;MonitorConfig&gt;,
+    logging: <span class="prelude-ty">Option</span>&lt;LoggingConfig&gt;,
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">'de</span>&gt; Deserialize&lt;<span class="lifetime">'de</span>&gt; <span class="kw">for </span>CuConfig {
@@ -1008,8 +1084,8 @@
     <span class="kw">where
         </span>D: Deserializer&lt;<span class="lifetime">'de</span>&gt;,
     {
-        <span class="kw">let </span>representation = CuConfigRepresentation::deserialize(deserializer)
-            .expect(<span class="string">"Failed to deserialize config"</span>);
+        <span class="kw">let </span>representation =
+            CuConfigRepresentation::deserialize(deserializer).map_err(serde::de::Error::custom)<span class="question-mark">?</span>;
 
         <span class="kw">let </span><span class="kw-2">mut </span>cuconfig = CuConfig::default();
         <span class="kw">for </span>task <span class="kw">in </span>representation.tasks {
@@ -1036,6 +1112,7 @@
             );
         }
         cuconfig.monitor = representation.monitor;
+        cuconfig.logging = representation.logging;
         <span class="prelude-val">Ok</span>(cuconfig)
     }
 }
@@ -1062,6 +1139,7 @@
             tasks,
             cnx,
             monitor: <span class="self">self</span>.monitor.clone(),
+            logging: <span class="self">self</span>.logging.clone(),
         }
         .serialize(serializer)
     }
@@ -1072,11 +1150,12 @@
         CuConfig {
             graph: StableDiGraph::new(),
             monitor: <span class="prelude-val">None</span>,
+            logging: <span class="prelude-val">None</span>,
         }
     }
 }
 
-<span class="doccomment">/// The implementation has a lot of conveinence methods to manipulate
+<span class="doccomment">/// The implementation has a lot of convenience methods to manipulate
 /// the configuration to give some flexibility into programmatically creating the configuration.
 </span><span class="kw">impl </span>CuConfig {
     <span class="doccomment">/// Add a new node to the configuration graph.
@@ -1088,6 +1167,12 @@
     </span><span class="attr">#[allow(dead_code)] </span><span class="comment">// Used in proc macro
     </span><span class="kw">pub fn </span>get_node(<span class="kw-2">&amp;</span><span class="self">self</span>, node_id: NodeId) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Node&gt; {
         <span class="self">self</span>.graph.node_weight(node_id.into())
+    }
+
+    <span class="doccomment">/// Get the node with the given id mutably.
+    </span><span class="attr">#[allow(dead_code)] </span><span class="comment">// Used in proc macro
+    </span><span class="kw">pub fn </span>get_node_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>, node_id: NodeId) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Node&gt; {
+        <span class="self">self</span>.graph.node_weight_mut(node_id.into())
     }
 
     <span class="doccomment">/// this is more like infer from the connections of this node.
@@ -1218,9 +1303,13 @@
     }
 
     <span class="kw">pub fn </span>deserialize_ron(ron: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::get_options()
-            .from_str(ron)
-            .expect(<span class="string">"Syntax Error in config"</span>)
+        <span class="kw">match </span><span class="self">Self</span>::get_options().from_str(ron) {
+            <span class="prelude-val">Ok</span>(ron) =&gt; ron,
+            <span class="prelude-val">Err</span>(e) =&gt; <span class="macro">panic!</span>(
+                <span class="string">"Syntax Error in config: {} at position {}"</span>,
+                e.code, e.position
+            ),
+        }
     }
 
     <span class="doccomment">/// Render the configuration graph in the dot format.
@@ -1234,10 +1323,10 @@
                     <span class="kw">let </span>config_str = config
                         .<span class="number">0
                         </span>.iter()
-                        .map(|(k, v)| <span class="macro">format!</span>(<span class="string">"&lt;B&gt;{}&lt;/B&gt; = {}&lt;BR ALIGN=\"LEFT\"/&gt;"</span>, k, v))
+                        .map(|(k, v)| <span class="macro">format!</span>(<span class="string">"&lt;B&gt;{k}&lt;/B&gt; = {v}&lt;BR ALIGN=\"LEFT\"/&gt;"</span>))
                         .collect::&lt;Vec&lt;String&gt;&gt;()
                         .join(<span class="string">"\n"</span>);
-                    <span class="macro">format!</span>(<span class="string">"&lt;BR/&gt;____________&lt;BR ALIGN=\"LEFT\"/&gt;{}"</span>, config_str)
+                    <span class="macro">format!</span>(<span class="string">"&lt;BR/&gt;____________&lt;BR ALIGN=\"LEFT\"/&gt;{config_str}"</span>)
                 }
                 <span class="prelude-val">None </span>=&gt; String::new(),
             };
@@ -1354,6 +1443,14 @@
     }
 
     <span class="attr">#[test]
+    #[should_panic(expected = <span class="string">"Syntax Error in config: Expected opening `[` at position 1:10"</span>)]
+    </span><span class="kw">fn </span>test_deserialization_error() {
+        <span class="comment">// Task needs to be an array, but provided tuple wrongfully
+        </span><span class="kw">let </span>txt = <span class="string">r#"( tasks: (), cnx: [], monitor: (type: "ExampleMonitor", ) ) "#</span>;
+        CuConfig::deserialize_ron(txt);
+    }
+
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>test_monitor() {
         <span class="kw">let </span>txt = <span class="string">r#"( tasks: [], cnx: [], monitor: (type: "ExampleMonitor", ) ) "#</span>;
         <span class="kw">let </span>config = CuConfig::deserialize_ron(txt);
@@ -1366,6 +1463,29 @@
             config.monitor.as_ref().unwrap().config.as_ref().unwrap().<span class="number">0</span>[<span class="string">"toto"</span>],
             <span class="number">4</span>.into()
         );
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>test_logging_parameters() {
+        <span class="comment">// Test with `enable_task_logging: false`
+        </span><span class="kw">let </span>txt = <span class="string">r#"( tasks: [], cnx: [], logging: ( slab_size_mib: 1024, section_size_mib: 100, enable_task_logging: false ),) "#</span>;
+
+        <span class="kw">let </span>config = CuConfig::deserialize_ron(txt);
+        <span class="macro">assert!</span>(config.logging.is_some());
+        <span class="kw">let </span>logging_config = config.logging.unwrap();
+        <span class="macro">assert_eq!</span>(logging_config.slab_size_mib.unwrap(), <span class="number">1024</span>);
+        <span class="macro">assert_eq!</span>(logging_config.section_size_mib.unwrap(), <span class="number">100</span>);
+        <span class="macro">assert!</span>(!logging_config.enable_task_logging);
+
+        <span class="comment">// Test with `enable_task_logging` not provided
+        </span><span class="kw">let </span>txt =
+            <span class="string">r#"( tasks: [], cnx: [], logging: ( slab_size_mib: 1024, section_size_mib: 100, ),) "#</span>;
+        <span class="kw">let </span>config = CuConfig::deserialize_ron(txt);
+        <span class="macro">assert!</span>(config.logging.is_some());
+        <span class="kw">let </span>logging_config = config.logging.unwrap();
+        <span class="macro">assert_eq!</span>(logging_config.slab_size_mib.unwrap(), <span class="number">1024</span>);
+        <span class="macro">assert_eq!</span>(logging_config.section_size_mib.unwrap(), <span class="number">100</span>);
+        <span class="macro">assert!</span>(logging_config.enable_task_logging);
     }
 }
 </code></pre></div></section></main></body></html>
